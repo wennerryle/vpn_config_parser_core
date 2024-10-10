@@ -1,12 +1,14 @@
+mod lexems;
 use pyo3::prelude::*;
 
 #[pyfunction]
-fn sum_as_string(a: usize, b: usize) -> PyResult<(String, String)> {
-    Ok(((a + b).to_string(), String::from("hello")))
+fn parse_config(a: &str) -> PyResult<(String, String)> {
+    Ok((format!("hello, {a}"), "world!".to_string()))
 }
 
 #[pymodule]
 fn vpn_config_parser(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
+    m.add_function(wrap_pyfunction!(parse_config, m)?)?;
+    // m.add_function(wrap_pyfunction!(lexems::parse_hash_comment, m)?)?;
     Ok(())
 }
