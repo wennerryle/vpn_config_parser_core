@@ -21,10 +21,12 @@ use nom::{
 
 // from vpn_config_parser import parse_hash_comment
 pub fn parse_definition_name(input: &str) -> IResult<&str, &str> {
-    let char_filter = |char| !matches!(char, ' ' | '\r' | '\n' | '\t' | '{');
-
     let (rest, _) = tag("declare")(input)?;
-    let (rest, result) = delimited(multispace1, take_while(char_filter), multispace0)(rest)?;
+    let (rest, result) = delimited(
+        multispace1,
+        take_while(|char| !matches!(char, ' ' | '\r' | '\n' | '\t' | '{')),
+        multispace0,
+    )(rest)?;
 
     Ok((rest, result))
 }

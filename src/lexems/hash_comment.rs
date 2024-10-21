@@ -15,27 +15,39 @@
 
 use nom::{
     bytes::complete::{tag, take_while},
+    character::complete::multispace0,
+    multi::many0,
     sequence::preceded,
-    IResult,
+    IResult, Parser,
 };
 
 // from vpn_config_parser import parse_hash_comment
+/// note: Takes multispace0 from both ends
 #[rustfmt::skip]
 pub fn parse_hash_comment(input: &str) -> IResult<&str, &str> {
+    let (rest, _) = multispace0(input)?;
+
     let (rest, result) = preceded(
         tag("#"),
         take_while(|char| char != '\n' && char != '\r')
-    )(input)?;
+    )(rest)?;
 
-    let rest = rest.trim_start();
+    let (rest, _) = multispace0(rest)?;
 
     Ok((rest, result))
+}
+
+pub fn parse_hash_comments0(input: &str) -> IResult<&str, &str> {
+    let (rest, _) = many0(parse_hash_comment)(input)?;
+
+    Ok((rest, ""))
 }
 
 #[test]
 fn test_hash_comment_parsing() {
     assert_eq!(parse_hash_comment("#comment"), Ok(("", "comment")));
     assert_eq!(parse_hash_comment("#comment\r"), Ok(("", "comment")));
+
     assert_eq!(parse_hash_comment("# comment"), Ok(("", " comment")));
     assert_eq!(parse_hash_comment("#comment\r\n"), Ok(("", "comment")));
 
@@ -46,6 +58,11 @@ fn test_hash_comment_parsing() {
 
     assert_eq!(
         parse_hash_comment("#comment\nsome_check"),
+        Ok(("some_check", "comment"))
+    );
+
+    assert_eq!(
+        parse_hash_comment("     #comment\nsome_check"),
         Ok(("some_check", "comment"))
     );
 }

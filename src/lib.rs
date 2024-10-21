@@ -1,9 +1,14 @@
 mod lexems;
 use pyo3::prelude::*;
 
+// from vpn_config_parser import parse_config
 #[pyfunction]
-fn parse_config(a: &str) -> PyResult<(String, String)> {
-    Ok((format!("hello, {a}"), "world!".to_string()))
+#[pyo3(signature = (a = None))]
+fn parse_config(a: Option<&str>) -> PyResult<(String, String)> {
+    match a {
+        Some(value) => Ok(("Hello, ".to_string(), value.to_string())),
+        None => Ok(("Hello, ".to_string(), "world!".to_string())),
+    }
 }
 
 #[pymodule]

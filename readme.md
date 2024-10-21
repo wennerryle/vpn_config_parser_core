@@ -6,7 +6,7 @@
 
 Требования:
 
-* [Rust SDK](https://rustup.rs/) (stable >=1.75.0)
+* [Rust](https://rustup.rs/) (stable >= 1.75.0)
 * [Python](https://www.python.org/downloads/) (>= 3.8)
 * Git (необязательно если есть bash)
 
@@ -16,4 +16,5 @@
 python -m venv .venv
 source .venv/Scripts/activate
 pip install -e .
+maturin develop # add -r flag for release build (https://www.maturin.rs/tutorial)
 ```
