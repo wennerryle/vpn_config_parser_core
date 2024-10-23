@@ -5,10 +5,10 @@ pub use constant::{parse_constant, Constant};
 use definition::parse_definition_name;
 use nom::branch::alt;
 use nom::character::complete::{char, multispace0};
+use nom::combinator::opt;
 use nom::multi::many0;
-use nom::sequence::{delimited, preceded};
+use nom::sequence::delimited;
 use nom::IResult;
-use nom::Parser;
 
 use crate::lexems::hash_comment::parse_hash_comments0;
 
@@ -23,24 +23,20 @@ pub struct Declare {
 }
 
 pub fn parse_declare(input: &str) -> IResult<&str, Declare> {
-    let (rest, definition_name) = parse_definition_name(input)?;
-
-    println!("definition name parsed!");
-
-    println!("rest: {rest} def_name: {definition_name}");
-    let (rest, _) = char('{')(rest)?;
-    println!("'{{' parsed");
+    let (rest, _) = parse_hash_comments0(input)?;
+    let (rest, definition_name) = parse_definition_name(rest)?;
 
     let (rest, constants) = many0(delimited(
-        alt((parse_hash_comments0, multispace0)),
+        opt(parse_hash_comments0),
         parse_constant,
-        alt((parse_hash_comments0, multispace0)),
+        opt(parse_hash_comments0),
     ))(rest)?;
 
     let (rest, declarations) = many0(parse_declare)(rest)?;
 
+    let (rest, _) = multispace0(rest)?; // if empty block
+
     let (rest, _) = char('}')(rest)?;
-    println!("'}}' parsed");
 
     Ok((
         rest,

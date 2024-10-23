@@ -13,8 +13,8 @@
 Запуск (bash / zsh / windows: git bash):
 
 ```bash
-python -m venv .venv
+python -m venv .venv # skip this step if you already do it
 source .venv/Scripts/activate
-pip install -e .
+pip install -e . # skip this step if you already do it
 maturin develop # add -r flag for release build (https://www.maturin.rs/tutorial)
 ```

@@ -14,19 +14,23 @@
 
 use nom::{
     bytes::complete::{tag, take_while},
-    character::complete::{multispace0, multispace1},
+    character::complete::{char, multispace0, multispace1},
     sequence::delimited,
     IResult,
 };
 
 // from vpn_config_parser import parse_hash_comment
 pub fn parse_definition_name(input: &str) -> IResult<&str, &str> {
-    let (rest, _) = tag("declare")(input)?;
+    let (rest, _) = multispace0(input)?;
+    let (rest, _) = tag("declare")(rest)?;
     let (rest, result) = delimited(
         multispace1,
         take_while(|char| !matches!(char, ' ' | '\r' | '\n' | '\t' | '{')),
         multispace0,
     )(rest)?;
+
+    let (rest, _) = char('{')(rest)?;
+    let (rest, _) = multispace0(rest)?;
 
     Ok((rest, result))
 }
