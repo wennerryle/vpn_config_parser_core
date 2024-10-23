@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 class Constant():
     type: str
@@ -10,10 +10,10 @@ class Constant():
 
 class Declare():
     name: str
-    constants: List[Constant]
-    declarations: List[Declare]
+    constants: list[Constant]
+    declarations: list[Declare]
 
-    def __init__(self, name: str, constants: List[Constant], declarations: List[Declare]) -> None:
+    def __init__(self, name: str, constants: list[Constant], declarations: list[Declare]) -> None:
         ...
 
 def parse_config(input: str) -> Optional[Declare]:

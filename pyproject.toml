@@ -22,4 +22,3 @@ python-source = "python"
 
 [tool.mypy]
 ignore_missing_imports = true
-mypy_path = "$MYPY_CONFIG_FILE_DIR/stubs"
