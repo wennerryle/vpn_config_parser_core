@@ -3,18 +3,16 @@ mod definition;
 
 pub use constant::{parse_constant, Constant};
 use definition::parse_definition_name;
-use nom::branch::alt;
 use nom::character::complete::{char, multispace0};
 use nom::combinator::opt;
 use nom::multi::many0;
 use nom::sequence::delimited;
 use nom::IResult;
+use pyo3::pyclass;
 
 use crate::lexems::hash_comment::parse_hash_comments0;
 
-use super::parse_hash_comment;
-
-// #[pyclass]
+#[pyclass]
 #[derive(Default, Debug, PartialEq)]
 pub struct Declare {
     pub name: String,

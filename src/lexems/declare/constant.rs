@@ -9,10 +9,10 @@ use nom::{
     sequence::preceded,
     IResult,
 };
-// use pyo3::pyclass;
+use pyo3::pyclass;
 
 #[derive(PartialEq, Debug)]
-// #[pyclass]
+#[pyclass]
 pub struct Constant {
     r#type: String,
     key: String,
