@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 class Constant():
     type: str
@@ -16,4 +16,5 @@ class Declare():
     def __init__(self, name: str, constants: List[Constant], declarations: List[Declare]) -> None:
         ...
 
-def parse_config(input: str): Declare | None
+def parse_config(input: str) -> Optional[Declare]:
+    ...
