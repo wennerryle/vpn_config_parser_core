@@ -14,5 +14,12 @@ classifiers = [
 dynamic = ["version"]
 name = "vpn_config_parser"
 requires-python = ">=3.8"
+
 [tool.maturin]
 features = ["pyo3/extension-module"]
+include = ["*.pyi"]
+python-source = "python"
+
+[tool.mypy]
+ignore_missing_imports = true
+mypy_path = "$MYPY_CONFIG_FILE_DIR/stubs"
