@@ -1,5 +1,5 @@
 mod lexems;
-use lexems::{parse_declare, Declare};
+use lexems::{parse_declare, Constant, Declare};
 use pyo3::prelude::*;
 
 // python: from vpn_config_parser import parse_config
@@ -14,5 +14,7 @@ fn parse_config(a: &str) -> PyResult<Option<Declare>> {
 #[pymodule]
 fn vpn_config_parser(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(parse_config, m)?)?;
+    m.add_class::<Declare>()?;
+    m.add_class::<Constant>()?;
     Ok(())
 }

@@ -12,20 +12,12 @@ use pyo3::{pyclass, pymethods, PyResult};
 
 use crate::lexems::hash_comment::parse_hash_comments0;
 
-#[pyclass(module = "vpn_config_parser")]
-#[derive(Default, Debug, PartialEq)]
+#[pyclass(module = "vpn_config_parser", get_all)]
+#[derive(Default, Debug, PartialEq, Clone)]
 pub struct Declare {
     pub name: String,
     pub constants: Vec<Constant>,
     pub declarations: Vec<Declare>,
-}
-
-#[pymethods]
-impl Declare {
-    #[getter]
-    fn get_name(&self) -> PyResult<&str> {
-        Ok(&self.name)
-    }
 }
 
 pub fn parse_declare(input: &str) -> IResult<&str, Declare> {

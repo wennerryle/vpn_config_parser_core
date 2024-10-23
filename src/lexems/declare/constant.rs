@@ -11,7 +11,7 @@ use nom::{
 };
 use pyo3::pyclass;
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 #[pyclass(module = "vpn_config_parser", get_all)]
 pub struct Constant {
     r#type: String,
