@@ -2,19 +2,20 @@
 
 автор(ы):
 
-* Поздеев Владислав Евгеньевич (tg: @wennerryle) (email: wennerryle@gmail.com)
+- Поздеев Владислав Евгеньевич (tg: @wennerryle) (email: wennerryle@gmail.com)
 
 Требования:
 
-* [Rust](https://rustup.rs/) (stable >= 1.75.0)
-* [Python](https://www.python.org/downloads/) (>= 3.8)
-* Git (необязательно если есть bash)
+- [Rust](https://rustup.rs/) (stable >= 1.75.0)
+- [Python](https://www.python.org/downloads/) (>= 3.8)
+- Git (необязательно если есть bash)
 
 Запуск (bash / zsh / windows: git bash):
 
 ```bash
 python -m venv .venv # skip this step if you already do it
 source .venv/Scripts/activate
+pip install maturin # skip this step if you already do it
 pip install -e . # skip this step if you already do it
 maturin develop # add -r flag for release build (https://www.maturin.rs/tutorial)
 ```
