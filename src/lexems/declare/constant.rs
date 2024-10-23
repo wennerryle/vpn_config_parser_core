@@ -16,7 +16,7 @@ pub struct Constant {
 
 pub fn parse_constant(input: &str) -> IResult<&str, Constant> {
     fn take_until_delimiter(input: &str) -> IResult<&str, &str> {
-        take_while(|char: char| !matches!(char, ' ' | '\r' | '\n' | '#'))(input)
+        take_while(|char: char| !matches!(char, ' ' | '\r' | '\n' | '#' | '}'))(input)
     }
 
     let (rest, r#type) = take_until_delimiter(input)?;

@@ -1,4 +1,6 @@
 /target
+
+# reason: have sensitive data
 example.config
 
 # Byte-compiled / optimized / DLL files
