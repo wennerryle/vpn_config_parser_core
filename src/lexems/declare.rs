@@ -8,16 +8,24 @@ use nom::combinator::opt;
 use nom::multi::many0;
 use nom::sequence::delimited;
 use nom::IResult;
-use pyo3::pyclass;
+use pyo3::{pyclass, pymethods, PyResult};
 
 use crate::lexems::hash_comment::parse_hash_comments0;
 
-#[pyclass]
+#[pyclass(module = "vpn_config_parser")]
 #[derive(Default, Debug, PartialEq)]
 pub struct Declare {
     pub name: String,
     pub constants: Vec<Constant>,
     pub declarations: Vec<Declare>,
+}
+
+#[pymethods]
+impl Declare {
+    #[getter]
+    fn get_name(&self) -> PyResult<&str> {
+        Ok(&self.name)
+    }
 }
 
 pub fn parse_declare(input: &str) -> IResult<&str, Declare> {
@@ -44,19 +52,4 @@ pub fn parse_declare(input: &str) -> IResult<&str, Declare> {
             name: definition_name.to_string(),
         },
     ))
-}
-
-// nodemon -e rs --exec "cargo test -- lexems::declare::test_parse_declaration --show_output"
-#[test]
-fn test_parse_declaration() {
-    let result = parse_declare("declare x_really_weird_things..{avavav dfg dfg#some comment}");
-    match result {
-        Ok(res) => println!("{res:?}"),
-        Err(ref err) => {
-            println!("{result:?}\n");
-            if let nom::Err::Error(value) = err {
-                println!("{value}")
-            }
-        }
-    }
 }

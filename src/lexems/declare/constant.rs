@@ -12,7 +12,7 @@ use nom::{
 use pyo3::pyclass;
 
 #[derive(PartialEq, Debug)]
-#[pyclass]
+#[pyclass(module = "vpn_config_parser", get_all)]
 pub struct Constant {
     r#type: String,
     key: String,
