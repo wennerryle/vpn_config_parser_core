@@ -18,7 +18,7 @@ use nom::{
     character::complete::multispace0,
     multi::many0,
     sequence::preceded,
-    IResult, Parser,
+    IResult,
 };
 
 // from vpn_config_parser import parse_hash_comment

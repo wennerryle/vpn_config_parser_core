@@ -11,6 +11,10 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
+dependencies = [
+  "maturin",
+  "pandas",
+]
 dynamic = ["version"]
 name = "vpn_config_parser"
 requires-python = ">=3.8"

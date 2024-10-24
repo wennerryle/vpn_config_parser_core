@@ -8,7 +8,7 @@ use nom::combinator::opt;
 use nom::multi::many0;
 use nom::sequence::delimited;
 use nom::IResult;
-use pyo3::{pyclass, pymethods, PyResult};
+use pyo3::pyclass;
 
 use crate::lexems::hash_comment::parse_hash_comments0;
 
