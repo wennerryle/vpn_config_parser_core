@@ -1,4 +1,5 @@
 /target
+.mypy_cache
 
 # reason: have sensitive data
 example.config

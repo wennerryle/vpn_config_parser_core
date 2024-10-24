@@ -8,7 +8,7 @@ use nom::combinator::opt;
 use nom::multi::many0;
 use nom::sequence::delimited;
 use nom::IResult;
-use pyo3::pyclass;
+use pyo3::{pyclass, pymethods, PyResult};
 
 use crate::lexems::hash_comment::parse_hash_comments0;
 
@@ -18,6 +18,13 @@ pub struct Declare {
     pub name: String,
     pub constants: Vec<Constant>,
     pub declarations: Vec<Declare>,
+}
+
+#[pymethods]
+impl Declare {
+    fn __str__(&self) -> PyResult<String> {
+        Ok(format!("{self:?}"))
+    }
 }
 
 pub fn parse_declare(input: &str) -> IResult<&str, Declare> {
