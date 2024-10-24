@@ -1,5 +1,8 @@
+from typing import Optional
 from vpn_config_parser import *
 from declare_itertools import *
+import converters
+import pandas as pd
 
 config_text: str
 
@@ -8,6 +11,11 @@ with open('./vpn_server.config', 'r', encoding='utf-8-sig') as content_file:
 
 parse_result = parse_config(config_text)
 
+def process_config(parse_result: Declare) -> pd.DataFrame:
+    users = [*get_users(parse_result)]
+    return converters.flatten_declare_objects(users)
+
 if parse_result is not None:
-    for user in get_users(parse_result):
-        print(user)
+    users_df = process_config(parse_result)
+
+    print(users_df)
