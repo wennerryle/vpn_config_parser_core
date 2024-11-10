@@ -13,8 +13,6 @@ classifiers = [
 ]
 dependencies = [
   "maturin",
-  "pandas",
-  "openpyxl",
 ]
 dynamic = ["version"]
 name = "vpn_config_parser"

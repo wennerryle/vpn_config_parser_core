@@ -1,6 +1,5 @@
 # Файл с типизацией. Генерация типов из Rust пока-что в экспериментальном режиме, поэтому написано ручками
-
-from typing import Optional
+from typing import List, Optional
 
 class Constant():
     type: str
@@ -15,13 +14,13 @@ class Constant():
 
 class Declare():
     name: str
-    constants: list[Constant]
-    declarations: list[Declare]
+    constants: List[Constant]
+    declarations: List[Declare]
 
     def __str__(self) -> str:
         ...
 
-    def __init__(self, name: str, constants: list[Constant], declarations: list[Declare]) -> None:
+    def __init__(self, name: str, constants: List[Constant], declarations: List[Declare]) -> None:
         ...
 
 def parse_config(input: str) -> Optional[Declare]:
