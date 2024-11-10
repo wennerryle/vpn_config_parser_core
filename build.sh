@@ -1,0 +1,1 @@
+docker run --rm -v .:/io ghcr.io/pyo3/maturin build --release

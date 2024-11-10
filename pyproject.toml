@@ -25,5 +25,8 @@ features = ["pyo3/extension-module"]
 include = ["*.pyi"]
 python-source = "python"
 
+[package.metadata.maturin]
+compatibility = "manylinux2014"
+
 [tool.mypy]
 ignore_missing_imports = true

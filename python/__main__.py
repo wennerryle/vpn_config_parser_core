@@ -16,10 +16,7 @@ def process_config(parse_result: Declare) -> pd.DataFrame:
     return converters.flatten_declare_objects(users)
 
 if parse_result is not None:
-    i = 0
-    for user in get_users(parse_result):
-        i += 1
-
     users_df = process_config(parse_result)
+    print(users_df)
 
     users_df.to_excel("text.xlsx")
